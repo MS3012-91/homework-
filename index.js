@@ -6,9 +6,11 @@ const enterTodo = document.querySelector ('input[name = "addTodo"]');
 const newElements = document.querySelector ('.newElements');
 
 
+let total = 0;
+btnadd.addEventListener ('click', createNewItem); 
+let count =localStorage.length;
 
-btnadd.addEventListener ('click', createNewItem);
-let count =0;
+
 
 function createNewItem () {
     let item = document.createElement ('li');
@@ -26,6 +28,7 @@ function createNewItem () {
      count++;
      enterTodo.value = '';
      item.appendChild (txt);
+     total++;
  }
     let closeButton = document.createElement ('button');
     closeButton.className = 'closeButton';
@@ -34,8 +37,9 @@ function createNewItem () {
     closeButton.onclick = function () {
     closeButton.parentElement.className = 'deleted';
     let a = closeButton.parentElement.getAttribute('count');
+    count=newElements.lastChild.getAttribute;
     localStorage.removeItem(a);
-    //count--;
+    total--;
 }
 
 }
@@ -46,16 +50,22 @@ let i=0;
 window.addEventListener ('load', () => {
     if (localStorage.length !=0) {
         let i=0;
-        for (i=0; i<localStorage.length; i++) {
+
+
+        for (i=0; i< localStorage.length; i++) {
+            if (!localStorage.key(i)) {
+            continue
+            }
+            
+            else {
             let count= localStorage.key(i);
 
             let item = document.createElement ('li');
             item.className = "newItem";
              newElements.appendChild (item);
              item.setAttribute('count', count);
-            
-            let txt = document.createTextNode (localStorage.getItem(count));
-            count++;
+             let txt = document.createTextNode (localStorage.getItem(count));
+            //count++;
             item.appendChild (txt);
         
             let closeButton = document.createElement ('button');
@@ -65,12 +75,18 @@ window.addEventListener ('load', () => {
             closeButton.onclick = function () {
             closeButton.parentElement.className = 'deleted';
             let a = closeButton.parentElement.getAttribute('count');
+            count=newElements.lastChild.getAttribute;
             localStorage.removeItem(a); 
+            // for (a; a<localStorage.length; ++a) {
+            //     item = document.querySelector ('.newItem');
+            //     item.setAttribute('count', a);
+            // }
+            
             //count--;
             }
             
-           } 
-        
+           } }
+        total++
     }})
         
 
